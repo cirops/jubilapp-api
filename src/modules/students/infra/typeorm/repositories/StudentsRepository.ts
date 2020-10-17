@@ -3,6 +3,7 @@ import { getMongoRepository, MongoRepository } from 'typeorm';
 import IStudentsRepository from '@modules/students/repositories/IStudentsRepository';
 import ICreateStudentDTO from '@modules/students/dtos/ICreateStudentDTO';
 
+import IUpdateStudentDTO from '@modules/students/dtos/IUpdateStudentDTO';
 import Student from '../schemas/Student';
 
 class StudentsRepository implements IStudentsRepository {
@@ -30,6 +31,12 @@ class StudentsRepository implements IStudentsRepository {
 
   public async findOne(student_id: string): Promise<Student | undefined> {
     const student = this.ormRepository.findOne(student_id);
+
+    return student;
+  }
+
+  public async save(student: Student): Promise<Student> {
+    await this.ormRepository.save(student);
 
     return student;
   }

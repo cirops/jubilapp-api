@@ -1,9 +1,15 @@
-import { Entity, Column, ObjectIdColumn, CreateDateColumn } from 'typeorm';
+import {
+  ObjectID,
+  Entity,
+  Column,
+  ObjectIdColumn,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity('students')
 class Student {
   @ObjectIdColumn()
-  id: string;
+  id: ObjectID;
 
   @Column()
   name: string;
@@ -11,7 +17,7 @@ class Student {
   @Column()
   email: string;
 
-  @Column('timestamp with time zone')
+  @Column()
   birth_date: Date;
 
   @CreateDateColumn()
