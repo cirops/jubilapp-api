@@ -12,6 +12,12 @@ class EnrollmentsRepository implements IEnrollmentsRepository {
     this.ormRepository = getMongoRepository(Enrollment);
   }
 
+  public async find(): Promise<Enrollment[]> {
+    const enrollments = this.ormRepository.find();
+
+    return enrollments;
+  }
+
   public async create({
     student_id,
     course_id,
@@ -26,8 +32,8 @@ class EnrollmentsRepository implements IEnrollmentsRepository {
     return enrollment;
   }
 
-  public async findOne(Enrollment_id: string): Promise<Enrollment | undefined> {
-    const enrollment = this.ormRepository.findOne(Enrollment_id);
+  public async findOne(enrollment_id: string): Promise<Enrollment | undefined> {
+    const enrollment = this.ormRepository.findOne(enrollment_id);
 
     return enrollment;
   }
@@ -38,8 +44,8 @@ class EnrollmentsRepository implements IEnrollmentsRepository {
     return enrollment;
   }
 
-  public async delete(Enrollment_id: string): Promise<void> {
-    await this.ormRepository.delete(Enrollment_id);
+  public async delete(enrollment_id: string): Promise<void> {
+    await this.ormRepository.delete(enrollment_id);
   }
 }
 

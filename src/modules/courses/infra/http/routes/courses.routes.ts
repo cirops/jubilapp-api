@@ -5,6 +5,7 @@ import StudentsController from '../controllers/CoursesController';
 const coursesRouter = Router();
 const coursesController = new StudentsController();
 
+coursesRouter.get('/', coursesController.index);
 coursesRouter.post('/', coursesController.create);
 coursesRouter.get('/:id', coursesController.read);
 coursesRouter.put('/:id', coursesController.update);

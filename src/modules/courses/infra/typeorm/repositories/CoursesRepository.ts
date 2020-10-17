@@ -12,6 +12,12 @@ class CoursesRepository implements ICoursesRepository {
     this.ormRepository = getMongoRepository(Course);
   }
 
+  find(): Promise<Course[]> {
+    const courses = this.ormRepository.find();
+
+    return courses;
+  }
+
   public async create({
     title,
     description,

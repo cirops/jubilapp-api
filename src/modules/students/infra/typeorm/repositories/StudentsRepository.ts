@@ -12,6 +12,12 @@ class StudentsRepository implements IStudentsRepository {
     this.ormRepository = getMongoRepository(Student);
   }
 
+  find(): Promise<Student[]> {
+    const students = this.ormRepository.find();
+
+    return students;
+  }
+
   public async create({
     name,
     email,

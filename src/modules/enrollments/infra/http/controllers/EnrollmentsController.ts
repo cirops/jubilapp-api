@@ -2,12 +2,21 @@ import { Request, Response } from 'express';
 
 import { container } from 'tsyringe';
 
+import ListEnrollmentsService from '@modules/enrollments/services/ListEnrollmentsService';
 import CreateEnrollmentService from '@modules/enrollments/services/CreateEnrollmentService';
 import UpdateEnrollmentService from '@modules/enrollments/services/UpdateEnrollmentService';
 import ReadEnrollmentService from '@modules/enrollments/services/ReadEnrollmentService';
 import DeleteEnrollmentService from '@modules/enrollments/services/DeleteEnrollmentService';
 
 export default class EnrollmentsController {
+  public async index(request: Request, response: Response): Promise<Response> {
+    const listEnrollments = container.resolve(ListEnrollmentsService);
+
+    const enrollment = await listEnrollments.execute();
+
+    return response.status(200).json(enrollment);
+  }
+
   public async create(request: Request, response: Response): Promise<Response> {
     const { student_id, course_id } = request.body;
     const createEnrollment = container.resolve(CreateEnrollmentService);
