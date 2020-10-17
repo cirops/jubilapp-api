@@ -6,4 +6,5 @@ export default interface IStudentsRepository {
   create(data: ICreateStudentDTO): Promise<Student>;
   findOne(student_id: string): Promise<Student | undefined>;
   save(student: Student): Promise<Student>;
+  delete(student_id: string): Promise<void>;
 }

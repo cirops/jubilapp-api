@@ -5,6 +5,7 @@ import { container } from 'tsyringe';
 import CreateStudentService from '@modules/students/services/CreateStudentService';
 import UpdateStudentService from '@modules/students/services/UpdateStudentService';
 import ReadStudentService from '@modules/students/services/ReadStudentService';
+import DeleteStudentService from '@modules/students/services/DeleteStudentService';
 
 export default class StudentsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -32,17 +33,25 @@ export default class StudentsController {
     const student_id = request.params.id;
     const { name, email, birth_date } = request.body;
 
-    const updateProfile = container.resolve(UpdateStudentService);
+    const updateStudent = container.resolve(UpdateStudentService);
 
-    const user = await updateProfile.execute({
+    const user = await updateStudent.execute({
       student_id,
       name,
       email,
       birth_date,
     });
 
-    delete user.password;
-
     return response.json(user);
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const student_id = request.params.id;
+
+    const deleteStudent = container.resolve(DeleteStudentService);
+
+    await deleteStudent.execute({ student_id });
+
+    return response.status(204).send();
   }
 }

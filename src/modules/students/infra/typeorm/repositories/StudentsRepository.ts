@@ -3,7 +3,6 @@ import { getMongoRepository, MongoRepository } from 'typeorm';
 import IStudentsRepository from '@modules/students/repositories/IStudentsRepository';
 import ICreateStudentDTO from '@modules/students/dtos/ICreateStudentDTO';
 
-import IUpdateStudentDTO from '@modules/students/dtos/IUpdateStudentDTO';
 import Student from '../schemas/Student';
 
 class StudentsRepository implements IStudentsRepository {
@@ -39,6 +38,10 @@ class StudentsRepository implements IStudentsRepository {
     await this.ormRepository.save(student);
 
     return student;
+  }
+
+  public async delete(student_id: string): Promise<void> {
+    await this.ormRepository.delete(student_id);
   }
 }
 
