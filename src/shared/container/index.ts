@@ -6,6 +6,9 @@ import StudentsRepository from '@modules/students/infra/typeorm/repositories/Stu
 import ICoursesRepository from '@modules/courses/repositories/ICoursesRepository';
 import CoursesRepository from '@modules/courses/infra/typeorm/repositories/CoursesRepository';
 
+import IEnrollmentsRepository from '@modules/enrollments/repositories/IEnrollmentsRepository';
+import EnrollmentsRepository from '@modules/enrollments/infra/typeorm/repositories/EnrollmentsRepository';
+
 container.registerSingleton<IStudentsRepository>(
   'StudentsRepository',
   StudentsRepository,
@@ -14,4 +17,9 @@ container.registerSingleton<IStudentsRepository>(
 container.registerSingleton<ICoursesRepository>(
   'CoursesRepository',
   CoursesRepository,
+);
+
+container.registerSingleton<IEnrollmentsRepository>(
+  'EnrollmentsRepository',
+  EnrollmentsRepository,
 );
