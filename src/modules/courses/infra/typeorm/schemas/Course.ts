@@ -7,19 +7,16 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('students')
-class Student {
+@Entity('courses')
+class Course {
   @ObjectIdColumn()
   id: ObjectID;
 
   @Column()
-  name: string;
+  title: string;
 
   @Column()
-  email: string;
-
-  @Column()
-  birth_date: Date;
+  description: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -28,4 +25,4 @@ class Student {
   updated_at: Date;
 }
 
-export default Student;
+export default Course;
