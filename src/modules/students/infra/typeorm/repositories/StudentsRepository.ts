@@ -12,8 +12,20 @@ class StudentsRepository implements IStudentsRepository {
     this.ormRepository = getMongoRepository(Student);
   }
 
-  find(): Promise<Student[]> {
-    const students = this.ormRepository.find();
+  public async findByName(name: string): Promise<Student[]> {
+    const students = await this.ormRepository.find({ name });
+
+    return students;
+  }
+
+  public async findByEmail(email: string): Promise<Student[]> {
+    const students = await this.ormRepository.find({ email });
+
+    return students;
+  }
+
+  public async find(): Promise<Student[]> {
+    const students = await this.ormRepository.find();
 
     return students;
   }
@@ -35,7 +47,7 @@ class StudentsRepository implements IStudentsRepository {
   }
 
   public async findOne(student_id: string): Promise<Student | undefined> {
-    const student = this.ormRepository.findOne(student_id);
+    const student = await this.ormRepository.findOne(student_id);
 
     return student;
   }

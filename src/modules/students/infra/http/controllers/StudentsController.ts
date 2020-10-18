@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 
 import { container } from 'tsyringe';
 
+import ListStudentsByEmailService from '@modules/students/services/ListStudentsByEmailService';
+import ListStudentsByNameService from '@modules/students/services/ListStudentsByNameService';
 import ListStudentsService from '@modules/students/services/ListStudentsService';
 import CreateStudentService from '@modules/students/services/CreateStudentService';
 import UpdateStudentService from '@modules/students/services/UpdateStudentService';
@@ -10,11 +12,22 @@ import DeleteStudentService from '@modules/students/services/DeleteStudentServic
 
 export default class StudentsController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const listStudents = container.resolve(ListStudentsService);
+    let students;
+    let listStudents;
+    if (request.query.name) {
+      const name = request.query.name as string;
+      listStudents = container.resolve(ListStudentsByNameService);
+      students = await listStudents.execute(name);
+    } else if (request.query.email) {
+      const email = request.query.email as string;
+      listStudents = container.resolve(ListStudentsByEmailService);
+      students = await listStudents.execute(email);
+    } else {
+      listStudents = container.resolve(ListStudentsService);
+      students = await listStudents.execute();
+    }
 
-    const student = await listStudents.execute();
-
-    return response.status(200).json(student);
+    return response.status(200).json(students);
   }
 
   public async create(request: Request, response: Response): Promise<Response> {

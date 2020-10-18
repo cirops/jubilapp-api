@@ -1,6 +1,5 @@
 import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
-// import Student from '../infra/typeorm/schemas/Student';
 import IStudentsRepository from '../repositories/IStudentsRepository';
 
 interface IRequest {
